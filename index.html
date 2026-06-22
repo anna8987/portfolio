@@ -23,7 +23,7 @@
     --max-w:       780px;
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans:  'Inter', system-ui, sans-serif;
-    --nav-bg: rgba(255, 251, 252, 0.92);
+    --nav-bg: rgba(255, 251, 252, 1);
     --about-body: #5A4048;
   }
 
@@ -489,11 +489,14 @@
       flex-direction: column;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--white);
+      background: #FFFBFC;
+      opacity: 1;
       justify-content: center;
       align-items: center;
       gap: 2.5rem;
       z-index: 99;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
     nav ul.open { display: flex; }
     nav ul li a {
@@ -646,7 +649,7 @@
 <section class="section" id="progetti">
   <div class="section-label">Progetti</div>
   <div class="projects-list">
-    <div class="project-item fade-up" style="cursor:default;">
+    <a href="https://drive.google.com/file/d/10vggg84RX8NJWq0IW93pobpDIocyCWyo/view?usp=drive_link" target="_blank" rel="noopener" class="project-item fade-up">
       <div>
         <div class="project-title">Zoomie — Il guinzaglio digitale</div>
         <div class="project-desc">Progetto di Interaction Design: robottino intelligente con app di controllo remoto per monitorare e interagire con gli animali domestici durante le assenze del proprietario.</div>
@@ -656,7 +659,7 @@
         <span class="tag">Interaction Design</span>
         <span class="tag">Prototipazione</span>
       </div>
-    </div>
+    </a>
     <a href="https://drive.google.com/file/d/1_kOTD2bhBLiB0sv-719-EtLGRWyvXMfF/view?usp=drive_link" target="_blank" rel="noopener" class="project-item fade-up">
       <div>
         <div class="project-title">Amabile Jewels — Sistema informativo</div>
