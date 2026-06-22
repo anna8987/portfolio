@@ -454,17 +454,63 @@
     .project-item, .contact-link, .hero-cta { transition: none; }
   }
 
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--black);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
+    body { cursor: auto; }
+    #custom-cursor { display: none; }
+    a, button { cursor: pointer; }
+
     nav { padding: 1.25rem 1.5rem; }
-    nav ul { gap: 1.5rem; }
+    .hamburger { display: flex; }
+
+    nav ul {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--white);
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      z-index: 99;
+    }
+    nav ul.open { display: flex; }
+    nav ul li a {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+    }
+
     .hero { padding: 0 1.5rem 4rem; }
     .section { padding: 4rem 1.5rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { gap: 1.5rem; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .project-tags { display: none; }
+    .project-item { padding: 1.5rem 1rem; }
     footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     .hero-scroll { display: none; }
+    .theme-toggle { font-size: 0.9rem; padding: 8px 16px; }
   }
 </style>
 </head>
@@ -473,7 +519,10 @@
 <div id="custom-cursor">esplora →</div>
 <nav id="navbar">
   <a href="#" class="nav-logo"><em>A</em>NNA CAVALLARI</a>
-  <ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
     <li><a href="#about">Profilo</a></li>
     <li><a href="#studi">Formazione</a></li>
     <li><a href="#work">Esperienze</a></li>
@@ -525,7 +574,7 @@
     <div class="about-body fade-up">
       <p>Sono Cavallari Anna. La mia formazione si estende dalla scrittura del codice all'analisi dei dati, fino al diritto che governa le tecnologie digitali.</p>
       <p>Programmo in <strong>Python, Java, PHP, HTML e CSS</strong>, progetto e interrogo database con MySQL, e trasformo dati grezzi in modelli predittivi: reti convoluzionali, sentiment analysis, sistemi di raccomandazione. Non mi fermo al risultato, voglio comprendere cosa c'è dietro.</p>
-      <p>Ho studiato marketing in tutta la sua estensione: dalla strategia di posizionamento alla creazione di valore per il cliente, dalla distribuzione del prodotto alle tecniche digitali di visibilità come <strong>SEO, GEO, AEO e ottimizzazione per LLM</strong>. E conosco le normative che regolano ciò che creo: <strong>GDPR, AI Act, brevetti, marchi e diritto d'autore</strong>. Una visione tecnica e giuridica insieme, perché oggi non basta saper fare: bisogna anche sapere entro quali confini farlo.</p>
+      <p>Ho studiato marketing in tutta la sua estensione: dalla strategia di posizionamento alla creazione di valore per il cliente, dalla distribuzione del prodotto alle tecniche digitali di visibilità come <strong>SEO, GEO, AEO e ottimizzazione per LLM</strong>. Conosco le normative che regolano ciò che creo: <strong>GDPR, AI Act, brevetti, marchi e diritto d'autore</strong>. Una visione tecnica e giuridica insieme, perché oggi non basta saper fare: bisogna anche sapere entro quali confini farlo.</p>
     </div>
   </div>
 </section>
@@ -746,7 +795,7 @@
 </section>
 
 <footer>
-  <p>© 2025 Anna Cavallari · Torino, Italia</p>
+  <p>© 2026 Anna Cavallari · Torino, Italia</p>
   <span class="footer-initials">AC</span>
 </footer>
 
@@ -874,6 +923,19 @@
     cursor.style.opacity = '1';
     document.body.style.cursor = 'none';
     document.querySelectorAll('a, button').forEach(el => el.style.cursor = 'none');
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
   });
 
   const themeToggle = document.getElementById('themeToggle');
